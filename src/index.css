@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/*
+  Palette — warm monochrome, with four washed-out pastels for tags and
+  illustration spots. Every color is a CSS variable swapped by [data-theme];
+  Tailwind utilities (bg-bg, text-ink, border-line, bg-green-bg…) come from these.
+*/
+:root,
+[data-theme='light'] {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --sunken: #f7f6f3;
+  --ink: #111111;
+  --ink-hover: #333333;
+  --body: #2f3437;
+  --muted: #787774;
+  --faint: #a8a6a1;
+  --line: #eaeaea;
+  --hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --ambient: rgba(214, 170, 120, 0.35);
+
+  --red-bg: #fdebec;    --red: #9f2f2d;
+  --blue-bg: #e1f3fe;   --blue: #1f6c9f;
+  --green-bg: #edf3ec;  --green: #346538;
+  --yellow-bg: #fbf3db; --yellow: #956400;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #121211;
+  --surface: #181817;
+  --sunken: #1d1d1b;
+  --ink: #edebe6;
+  --ink-hover: #cfccc5;
+  --body: #d6d3cd;
+  --muted: #9a968e;
+  --faint: #5f5c56;
+  --line: #262624;
+  --hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --ambient: rgba(214, 170, 120, 0.5);
+
+  --red-bg: #33201f;    --red: #eaa3a0;
+  --blue-bg: #182a36;   --blue: #8cc4ea;
+  --green-bg: #1c2a1e;  --green: #9cc79f;
+  --yellow-bg: #30271a; --yellow: #e0bd76;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-sunken: var(--sunken);
+  --color-body: var(--body);
+  --color-ink-hover: var(--ink-hover);
+  --color-red-bg: var(--red-bg);
+  --color-red: var(--red);
+  --color-blue-bg: var(--blue-bg);
+  --color-blue: var(--blue);
+  --color-green-bg: var(--green-bg);
+  --color-green: var(--green);
+  --color-yellow-bg: var(--yellow-bg);
+  --color-yellow: var(--yellow);
+
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--yellow-bg);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- shared component classes ---------- */
+
+@utility container-page {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) { padding-inline: 2rem; }
+}
+
+@utility section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  &::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+  }
+}
+
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* status tag: pill, tiny, uppercase, pastel. Pair with a bg-*-bg/text-* tone. */
+@utility tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.6rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+/* flat bordered card; lifts by a hair on hover */
+@utility card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+/* primary CTA: solid ink, crisp corners, no shadow */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+  &:active { transform: scale(0.98); }
+}
+@utility btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  &:hover { background: var(--ink-hover); }
+}
+@utility btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--surface);
+  &:hover { border-color: var(--faint); }
+}
+
+@utility kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--sunken);
+  color: var(--muted);
+}
+
+/* subtle paper grain, sits above the background only */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* faint graph-paper lines behind the hero, fading out toward the edges */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+  opacity: 0.6;
+}
+
+/* one warm light spot drifting very slowly behind everything */
+@keyframes drift {
+  0%   { transform: translate3d(-10vw, -5vh, 0); }
+  50%  { transform: translate3d(25vw, 20vh, 0); }
+  100% { transform: translate3d(-10vw, -5vh, 0); }
+}
+.ambient {
+  position: fixed;
+  top: -20vh;
+  left: 10vw;
+  width: 70vmax;
+  height: 70vmax;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+  background: radial-gradient(circle, var(--ambient), transparent 60%);
+  animation: drift 40s ease-in-out infinite;
+}
+
+/* now-playing equalizer bars */
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.eq span {
+  display: block;
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom;
+  transform: scaleY(0.3);
+}
+.eq.playing span { animation: eq 0.9s ease-in-out infinite; }
+.eq.playing span:nth-child(2) { animation-delay: -0.3s; }
+.eq.playing span:nth-child(3) { animation-delay: -0.6s; }
+
+@keyframes ping-soft {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: inherit;
+  animation: ping-soft 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* project marquee — the track holds two copies and slides by exactly one */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee[data-paused='true'] .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* a tile reached from the marquee flashes once so the eye lands on it */
+@keyframes tile-flash {
+  0%, 60% { box-shadow: 0 0 0 2px var(--ink); }
+  100% { box-shadow: 0 0 0 2px transparent; }
+}
+li:target > a { border-radius: 12px; animation: tile-flash 1.8s ease-out; }

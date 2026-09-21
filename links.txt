@@ -1,0 +1,7 @@
+linkedin:https://www.linkedin.com/in/kshitij-bachhav-789a59213/
+github:https://github.com/zacktiger
+
+Medium article:https://medium.com/@kshitijbachhav005
+X:https://x.com/KshitijBachhav
+previous portfolio website: https://github.com/zacktiger/portfolio-website
+deployment: https://portfolio-eta-roan-85.vercel.app/
