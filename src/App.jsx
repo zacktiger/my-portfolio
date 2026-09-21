@@ -10,9 +10,10 @@ import NowPlaying from './components/NowPlaying.jsx'
 export default function App() {
   return (
     <div className="grain relative min-h-dvh overflow-x-clip">
+      <a href="#main" className="skip-link btn btn-primary">Skip to content</a>
       <div className="ambient" aria-hidden />
       <Nav />
-      <main className="relative z-10">
+      <main id="main" tabIndex={-1} className="relative z-10 outline-none">
         <Hero />
         <Work />
         <Writing />

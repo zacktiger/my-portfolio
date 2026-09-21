@@ -3,6 +3,7 @@ import {
 } from '@phosphor-icons/react'
 import { highlights, interests, pinned, principles, stack } from '../data/site.js'
 import Reveal from './Reveal.jsx'
+import TechLogo from './TechLogo.jsx'
 
 // Presentation for each interest: icon, pastel tone, bento width on a
 // 6-column grid (two wide tiles, then three narrow), and the "now" verb.
@@ -17,8 +18,8 @@ const look = {
 function Interest({ item, i }) {
   const { Icon, tone, span, verb } = look[item.key]
   return (
-    <Reveal as="li" delay={0.08 * i} className={`card flex flex-col p-6 sm:p-8 ${span}`}>
-      <span className={`grid size-10 place-items-center rounded-lg ${tone}`}>
+    <Reveal as="li" delay={0.08 * i} className={`card group flex flex-col p-6 sm:p-8 ${span}`}>
+      <span className={`icon-tile grid size-10 place-items-center rounded-lg ${tone}`}>
         <Icon size={20} weight="bold" />
       </span>
       <h4 className="mt-6 text-lg font-medium text-ink">{item.title}</h4>
@@ -63,20 +64,23 @@ const pinnedSlug = Object.fromEntries(pinned.map((p) => [p.name, p.slug]))
 function ToolGroup({ g, i }) {
   const { Icon, tone, span, wide } = toolLook[g.group]
   return (
-    <Reveal as="li" delay={0.08 * i} className={`card p-6 sm:p-7 ${span}`}>
+    <Reveal as="li" delay={0.08 * i} className={`card group p-6 sm:p-7 ${span}`}>
       <div className="flex items-center gap-3">
-        <span className={`grid size-8 place-items-center rounded-md ${tone}`}>
+        <span className={`icon-tile grid size-8 place-items-center rounded-md ${tone}`}>
           <Icon size={16} weight="bold" />
         </span>
         <h4 className="font-mono text-xs uppercase tracking-wider text-muted">{g.group}</h4>
         <span className="ml-auto font-mono text-xs text-faint">{String(g.items.length).padStart(2, '0')}</span>
       </div>
       <ul className={`mt-5 grid gap-x-6 ${wide ? 'sm:grid-cols-2' : ''}`}>
-        {g.items.map((t) => (
-          <li key={t.name} className="border-t border-line py-3">
-            <p className="leading-snug text-ink">{t.name}</p>
+        {g.items.map((t, j) => (
+          <li key={t.name} className="tech-row border-t border-line py-3" style={{ '--i': j }}>
+            <p className="flex items-center gap-2.5 leading-snug text-ink">
+              <TechLogo name={t.name} />
+              {t.name}
+            </p>
             {t.in.length > 0 && (
-              <p className="mt-1 font-mono text-[0.7rem] leading-snug text-faint">
+              <p className="mt-1 pl-[1.625rem] font-mono text-[0.7rem] leading-snug text-faint">
                 {t.in.map((name, j) => (
                   <span key={name}>
                     {j > 0 && <span aria-hidden> · </span>}

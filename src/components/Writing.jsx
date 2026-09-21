@@ -91,7 +91,9 @@ export default function Writing() {
             aria-expanded={expanded}
             className="btn btn-ghost"
           >
-            {expanded ? <Minus size={14} weight="bold" /> : <Plus size={14} weight="bold" />}
+            <span key={String(expanded)} className="icon-swap">
+              {expanded ? <Minus size={14} weight="bold" /> : <Plus size={14} weight="bold" />}
+            </span>
             {expanded ? 'Show fewer' : `${hidden} more ${hidden === 1 ? 'essay' : 'essays'}`}
           </button>
         )}

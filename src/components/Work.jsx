@@ -1,8 +1,10 @@
 import { ArrowUpRight } from '@phosphor-icons/react'
-import { pinned, socials } from '../data/site.js'
+import { pinned } from '../data/site.js'
+import Contributions from './Contributions.jsx'
 import Marquee from './Marquee.jsx'
 import ProjectCover from './ProjectCover.jsx'
 import Reveal from './Reveal.jsx'
+import TechLogo from './TechLogo.jsx'
 
 // Bento rhythm on a 6-column grid: wide / narrow, narrow / wide, half / half.
 // Wide tiles set the cover beside the text instead of above it.
@@ -53,10 +55,10 @@ function Tile({ p, i }) {
                 <span className="text-xs text-muted">{p.metric.label}</span>
               </p>
             )}
-            <ul className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted">
+            <ul className="flex flex-wrap gap-x-4 gap-y-1.5 font-mono text-xs text-muted">
               {p.stack.map((s, j) => (
-                <li key={s} className="flex items-center gap-2">
-                  {j > 0 && <span className="text-faint" aria-hidden>/</span>}
+                <li key={s} className="flex items-center gap-1.5" style={{ '--i': j }}>
+                  <TechLogo name={s} size={13} />
                   {s}
                 </li>
               ))}
@@ -69,7 +71,6 @@ function Tile({ p, i }) {
 }
 
 export default function Work() {
-  const github = socials.find((s) => s.label === 'GitHub')
   return (
     <section id="work" className="container-page py-24 sm:py-32">
       <Reveal className="section-label">Selected work</Reveal>
@@ -85,12 +86,7 @@ export default function Work() {
         {pinned.map((p, i) => <Tile key={p.slug} p={p} i={i} />)}
       </ol>
 
-      <Reveal className="mt-12">
-        <a href={github.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 text-sm text-muted hover:text-ink">
-          Everything else on GitHub
-          <ArrowUpRight size={14} weight="bold" className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
-      </Reveal>
+      <Contributions />
     </section>
   )
 }

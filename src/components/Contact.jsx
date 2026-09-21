@@ -1,7 +1,14 @@
 import { useState } from 'react'
-import { ArrowUpRight, Check, Copy } from '@phosphor-icons/react'
+import { ArrowUpRight, Check, Copy, EnvelopeSimple, GithubLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { profile, socials } from '../data/site.js'
 import Reveal from './Reveal.jsx'
+
+// Logo and hover tint for each contact card.
+const marks = {
+  GitHub: { Icon: GithubLogo, brand: 'var(--ink)' },
+  LinkedIn: { Icon: LinkedinLogo, brand: 'var(--blue)' },
+  Email: { Icon: EnvelopeSimple, brand: 'var(--accent)' },
+}
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
@@ -33,12 +40,15 @@ export default function Contact() {
           {profile.email}
         </a>
         <button onClick={copy} className="btn btn-ghost w-fit !px-3 !py-1.5 font-mono !text-xs !text-muted">
-          {copied ? <><Check size={13} weight="bold" /> Copied</> : <><Copy size={13} weight="bold" /> Copy</>}
+          <span key={String(copied)} className="icon-swap">{copied ? <Check size={13} weight="bold" /> : <Copy size={13} weight="bold" />}</span>
+          {copied ? 'Copied' : 'Copy'}
         </button>
       </Reveal>
 
       <ul className="mt-14 grid gap-4 sm:grid-cols-3">
-        {socials.map((s, i) => (
+        {socials.map((s, i) => {
+          const { Icon, brand } = marks[s.label]
+          return (
           <Reveal as="li" key={s.label} delay={0.08 * i}>
             <a
               href={s.href}
@@ -46,14 +56,18 @@ export default function Contact() {
               rel="noreferrer"
               className="card group flex items-center justify-between gap-4 p-6 hover:[box-shadow:var(--hover-shadow)]"
             >
-              <span className="min-w-0">
+              <span className="icon-tile contact-mark grid size-10 shrink-0 place-items-center rounded-lg bg-sunken text-ink" style={{ '--brand': brand }}>
+                <Icon size={20} weight="bold" />
+              </span>
+              <span className="min-w-0 flex-1">
                 <span className="block font-medium text-ink">{s.label}</span>
                 <span className="block truncate font-mono text-xs text-muted">{s.handle}</span>
               </span>
               <ArrowUpRight size={18} weight="bold" className="shrink-0 text-faint transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
             </a>
           </Reveal>
-        ))}
+          )
+        })}
       </ul>
     </section>
   )

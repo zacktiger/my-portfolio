@@ -214,7 +214,7 @@ export default function NowPlaying() {
             className="group flex h-12 items-center gap-2.5 rounded-lg border border-line bg-surface/90 pl-3.5 pr-3.5 [box-shadow:0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-md transition hover:border-faint active:scale-[0.98] sm:pr-4"
           >
             <span className={`grid size-6 place-items-center rounded-md ${playing ? 'text-accent' : 'text-ink'}`}>
-              {playing ? <Equalizer playing /> : <MusicNotes size={16} weight="bold" />}
+              {playing ? <Equalizer playing /> : <MusicNotes size={16} weight="bold" className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-0.5 group-hover:-rotate-12" />}
             </span>
             <span className="hidden max-w-[11rem] truncate text-left text-xs sm:block">
               <span className="block font-medium text-ink">{song.title}</span>

@@ -52,7 +52,7 @@ export default function Nav() {
     >
       <div className="container-page flex h-16 items-center justify-between">
         <a href="#top" className="font-serif text-2xl italic leading-none" aria-label={`${profile.name}, back to top`}>
-          kb<span className="text-accent">.</span>
+          kb<span className="logo-dot text-accent">.</span>
         </a>
 
         <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
@@ -87,7 +87,9 @@ export default function Nav() {
             aria-expanded={open}
             className="grid size-10 place-items-center rounded-md text-ink"
           >
-            {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+            <span key={open ? 'x' : 'list'} className="icon-swap">
+              {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+            </span>
           </button>
         </div>
       </div>

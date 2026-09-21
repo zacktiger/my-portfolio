@@ -80,7 +80,66 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  /* matches the page so rubber-band overscroll never flashes white in dark mode */
+  background: var(--bg);
+  /* reserve the bar's width so locking scroll (mobile menu) doesn't shift the page */
+  scrollbar-gutter: stable;
 }
+
+/* ---------- scrollbar ----------
+   A thin ink-on-paper thumb that sits inset from the edge, darkens on hover
+   and turns accent while dragged. Chrome ignores ::-webkit-scrollbar once
+   scrollbar-color is set, so the standard pair is only for Firefox. */
+:root { --scroll-thumb: color-mix(in oklab, var(--faint) 70%, transparent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+  min-height: 48px;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--muted); }
+::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
+::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+}
+
+/* ---------- theme switch ----------
+   The new theme grows out of the toggle as a circle (View Transitions API).
+   --vt-x/--vt-y/--vt-r are set by ThemeToggle just before it starts. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-reveal 550ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after { transition: none !important; }
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0)); }
+  to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0)); }
+}
+
+/* skip link: invisible until tabbed to */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 200ms ease;
+}
+.skip-link:focus-visible { transform: none; }
 
 body {
   background: var(--bg);
@@ -299,3 +358,94 @@ body {
   100% { box-shadow: 0 0 0 2px transparent; }
 }
 li:target > a { border-radius: 12px; animation: tile-flash 1.8s ease-out; }
+
+/* ---------- GitHub contribution calendar ----------
+   Cells grow in as a left-to-right sweep the first time the panel is seen.
+   The track is end-aligned inside a clipped box, so narrow screens lose the
+   oldest weeks, not the newest. */
+.contrib {
+  container-type: inline-size;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+  --gap: 3px;
+  --cell: clamp(10px, calc((100cqw - 52 * var(--gap)) / 53), 14px);
+}
+.contrib-track { display: flex; gap: var(--gap); }
+/* when weeks are clipped, fade the cut edge instead of slicing a column */
+@container (width < 43rem) {
+  .contrib-track { mask-image: linear-gradient(to left, #000 calc(100cqw - 2.5rem), transparent 100cqw); }
+}
+.contrib-week { display: grid; grid-template-rows: 1rem repeat(7, var(--cell)); gap: var(--gap); }
+.contrib-month {
+  width: var(--cell);
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: visible;
+}
+.contrib-day {
+  display: block;
+  width: var(--cell, 10px);
+  height: var(--cell, 10px);
+  border-radius: 2px;
+  background: var(--sunken);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--line) 60%, transparent);
+}
+.contrib-day[data-level='1'] { background: color-mix(in oklab, var(--accent) 28%, var(--sunken)); box-shadow: none; }
+.contrib-day[data-level='2'] { background: color-mix(in oklab, var(--accent) 52%, var(--sunken)); box-shadow: none; }
+.contrib-day[data-level='3'] { background: color-mix(in oklab, var(--accent) 76%, var(--sunken)); box-shadow: none; }
+.contrib-day[data-level='4'] { background: var(--accent); box-shadow: none; }
+.contrib-key { --cell: 10px; }
+
+.contrib .contrib-day {
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 400ms ease calc(var(--w) * 9ms),
+    transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--w) * 9ms);
+}
+.contrib[data-shown] .contrib-day { opacity: 1; transform: none; }
+/* once the sweep has finished, drop the stagger so hovering a day is instant */
+.contrib[data-settled] .contrib-day { transition: transform 180ms var(--ease-spring); }
+.contrib[data-settled] .contrib-day:hover { transform: scale(1.35); }
+@media (prefers-reduced-motion: reduce) {
+  .contrib .contrib-day { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- icon micro-motion ----------
+   One springy curve for every small icon response, so they feel related. */
+:root { --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* the logo's full stop hops when you point at it */
+.logo-dot { display: inline-block; transition: transform 350ms var(--ease-spring); }
+a:hover > .logo-dot { transform: translateY(-4px); }
+
+/* pastel icon tiles tilt a little when their card is hovered */
+.icon-tile > svg { transition: transform 400ms var(--ease-spring); }
+.group:hover .icon-tile > svg { transform: rotate(-10deg) scale(1.12); }
+
+/* icons that swap (theme, menu, copy, expand) turn in rather than blink */
+@keyframes icon-in {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+  to { opacity: 1; transform: none; }
+}
+.icon-swap { display: inline-grid; animation: icon-in 380ms var(--ease-spring); }
+
+/* ---------- technology logos ----------
+   Muted at rest. Hovering a card tints its logos to their brand colours in a
+   quick cascade (--i is the logo's position); hovering one tool row also gives
+   that logo the same springy tilt as the icon tiles. */
+.tech-logo {
+  color: var(--muted);
+  transition:
+    color 300ms ease calc(var(--i, 0) * 40ms),
+    transform 400ms var(--ease-spring);
+}
+.group:hover .tech-logo { color: var(--brand); }
+.tech-row:hover .tech-logo { transform: rotate(-10deg) scale(1.18); }
+
+/* contact marks tint to their brand as the card tilts them */
+.contact-mark { transition: color 250ms ease, background-color 250ms ease; }
+.group:hover .contact-mark { color: var(--brand); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
