@@ -15,6 +15,7 @@ const posts = feed
     const o = writing.overrides[p.id] || {}
     return { ...p, ...o, topics: o.topics || p.topics.slice(0, 2).map(humanize) }
   })
+  .filter((p) => !p.hidden) // `hidden: true` in an override keeps a post off the site
   .sort((a, b) => b.date.localeCompare(a.date))
 
 // The newest few are always shown; the rest sit behind a toggle so the section
