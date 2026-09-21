@@ -66,19 +66,17 @@ export default function Writing() {
     <section id="writing" className="container-page py-24 sm:py-32">
       <Reveal className="section-label">Writing</Reveal>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-16">
-        <Reveal>
-          <h2 className="display text-5xl text-balance sm:text-6xl">
-            Things I’ve written, <span className="italic text-muted">that you might find interesting.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <p className="max-w-md text-muted">
-            Outside code I like writing about the things I’m into — mostly geography, economics
-            and conflict. I like building projects around them too.
-          </p>
-        </Reveal>
-      </div>
+      <Reveal>
+        <h2 className="display mt-6 text-5xl sm:text-6xl">
+          Things I’ve written, <span className="italic text-muted sm:block">that you might find interesting.</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={0.08}>
+        <p className="mt-6 max-w-xl text-muted text-pretty">
+          Outside code I like writing about the things I’m into: mostly geography, economics
+          and conflict. I like building projects around them too.
+        </p>
+      </Reveal>
 
       <ol className="mt-12 border-t border-line">
         {visible.map((p, i) => <Post key={p.id} p={p} i={i < SHOWN ? i : i - SHOWN} />)}
