@@ -449,3 +449,62 @@ a:hover > .logo-dot { transform: translateY(-4px); }
 /* contact marks tint to their brand as the card tilts them */
 .contact-mark { transition: color 250ms ease, background-color 250ms ease; }
 .group:hover .contact-mark { color: var(--brand); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* ---------- Nixie clock (hero) ----------
+   Each tube stacks all ten numerals as faint outlines; the lit one is filled
+   in the accent. Dark mode adds the neon glow — on paper a glow reads as mud,
+   so light mode stays flat. The colon breathes once a second; a digit flickers
+   on only when the minute actually changes. */
+.nixie { display: inline-flex; align-items: center; gap: 3px; }
+.nixie-tube {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px 999px 5px 5px;
+  background: var(--surface);
+  font-family: 'Geist', ui-sans-serif, sans-serif;
+  font-weight: 300;
+  font-size: 1.125rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.nixie-ghost,
+.nixie-lit { grid-area: 1 / 1; padding-top: 2px; }
+/* solid, not translucent: the ten stacked ghosts merge into one pale
+   silhouette instead of darkening where they overlap */
+.nixie-ghost { color: color-mix(in srgb, var(--line) 55%, var(--surface)); }
+.nixie-lit {
+  color: var(--accent);
+  animation: nixie-ignite 260ms steps(1, end);
+}
+[data-theme='dark'] .nixie-lit {
+  text-shadow: 0 0 4px var(--accent), 0 0 12px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+[data-theme='dark'] .nixie-tube { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+
+@keyframes nixie-ignite {
+  0% { opacity: 0; }
+  25% { opacity: 0.8; }
+  45% { opacity: 0.2; }
+  65% { opacity: 1; }
+}
+
+.nixie-colon { display: inline-grid; gap: 5px; padding-inline: 2px; }
+.nixie-colon > span {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  animation: nixie-breathe 1s ease-in-out infinite;
+}
+[data-theme='dark'] .nixie-colon > span { box-shadow: 0 0 4px var(--accent); }
+@keyframes nixie-breathe {
+  50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nixie-lit, .nixie-colon > span { animation: none; }
+}

@@ -8,13 +8,46 @@ const formatTime = () =>
     hour: '2-digit', minute: '2-digit', hour12: false, timeZone: profile.timezone,
   }).format(new Date())
 
-function LocalTime() {
+// Front-to-back order of the cathodes in a real Nixie tube: every numeral is
+// always there as a faint wire outline, and only the lit one glows.
+const CATHODES = ['1', '6', '2', '7', '5', '0', '4', '9', '8', '3']
+
+function Tube({ digit }) {
+  return (
+    <span className="nixie-tube">
+      {CATHODES.map((n) => <span key={n} className="nixie-ghost">{n}</span>)}
+      {/* keyed so a new digit remounts and plays its ignite flicker */}
+      <span key={digit} className="nixie-lit">{digit}</span>
+    </span>
+  )
+}
+
+// Local time as a row of Nixie tubes. Re-renders on each minute boundary
+// rather than polling, so it never lags the real clock.
+function NixieClock() {
   const [time, setTime] = useState(formatTime)
   useEffect(() => {
-    const t = setInterval(() => setTime(formatTime()), 15_000)
-    return () => clearInterval(t)
+    let t
+    const tick = () => {
+      setTime(formatTime())
+      t = setTimeout(tick, 60_000 - (Date.now() % 60_000) + 50)
+    }
+    t = setTimeout(tick, 60_000 - (Date.now() % 60_000) + 50)
+    return () => clearTimeout(t)
   }, [])
-  return <span className="tabular-nums">{time} IST</span>
+  const [h, m] = time.split(':')
+  return (
+    <time dateTime={time} aria-label={`${time} IST`} className="inline-flex items-center gap-2">
+      <span className="nixie" aria-hidden>
+        <Tube digit={h[0]} />
+        <Tube digit={h[1]} />
+        <span className="nixie-colon"><span /><span /></span>
+        <Tube digit={m[0]} />
+        <Tube digit={m[1]} />
+      </span>
+      <span aria-hidden>IST</span>
+    </time>
+  )
 }
 
 export default function Hero() {
@@ -35,8 +68,8 @@ export default function Hero() {
             <span className="status-dot relative size-1.5 rounded-full bg-green" />
             {profile.status}
           </span>
-          <span className="font-mono text-xs text-muted">
-            {profile.location} · <LocalTime />
+          <span className="inline-flex items-center gap-3 font-mono text-xs text-muted">
+            {profile.location} <span aria-hidden>·</span> <NixieClock />
           </span>
         </motion.div>
 
