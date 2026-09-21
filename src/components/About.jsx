@@ -103,17 +103,17 @@ export default function About() {
     <section id="about" className="container-page py-24 sm:py-32">
       <Reveal className="section-label">About</Reveal>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+      <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <Reveal>
-          <p className="display text-3xl text-balance sm:text-4xl">
+          <p className="display text-4xl text-balance sm:text-5xl lg:text-[3.5rem]">
             I’m an ECE undergrad at IIIT Nagpur who never quite grew out of asking{' '}
             <span className="italic text-accent">why</span>.
           </p>
-          <p className="mt-6 max-w-lg text-muted">
+          <p className="mt-8 max-w-md text-lg text-muted text-pretty">
             I’m usually somewhere between “how does this work?” and “what if we built it
             differently?” I mostly build backend-heavy things, with detours into ML, generative
             and agentic AI, and product thinking. And I love a good conversation with
-            open-minded people.
+            open‑minded people.
           </p>
         </Reveal>
 
