@@ -105,15 +105,15 @@ export default function About() {
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
         <Reveal>
-          {/* TODO: rewrite in your own voice — placeholder copy. */}
           <p className="display text-3xl text-balance sm:text-4xl">
-            I’m an ECE undergrad at IIIT Nagpur who fell for the
-            <span className="italic text-accent"> backend</span> — queues, caches, locks,
-            and the numbers that say whether any of it was worth it.
+            I’m an ECE undergrad at IIIT Nagpur who never quite grew out of asking{' '}
+            <span className="italic text-accent">why</span>.
           </p>
           <p className="mt-6 max-w-lg text-muted">
-            I build solo and treat every project like an experiment: pick a hard constraint,
-            build the obvious version, measure it, then earn the complicated one.
+            I’m usually somewhere between “how does this work?” and “what if we built it
+            differently?” I mostly build backend-heavy things, with detours into ML, generative
+            and agentic AI, and product thinking. And I love a good conversation with
+            open-minded people.
           </p>
         </Reveal>
 

@@ -192,9 +192,9 @@ export const allProjects = [
 ]
 
 export const principles = [
-  { title: 'Measure before claiming', body: 'Every performance number here comes from a benchmark script I can re-run.' },
-  { title: 'Document the road not taken', body: 'Each README names the trade-off I didn’t take and the thing I didn’t build.' },
-  { title: 'Argue against my own pick', body: 'If a simpler design wins, the README says so — even when it’s the one I didn’t ship.' },
+  { title: 'Idea → Plan → Build', body: 'I like having a clear flow in mind before I start. Turn the idea into a plan, then get something working quickly.' },
+  { title: 'Build, then iterate', body: 'I’d rather ship a rough version than spend weeks imagining the perfect one. Most of the good stuff comes from improving what already exists.' },
+  { title: 'Measure when it matters', body: 'Once I’m happy with something, I benchmark it, test the trade-offs, and see whether the extra complexity actually earned its keep.' },
 ]
 
 // Each tool names the projects whose code actually uses it — keep `in` honest.
