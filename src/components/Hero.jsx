@@ -91,7 +91,7 @@ export default function Hero() {
               See the work
               <ArrowDown size={15} weight="bold" className="transition-transform group-hover:translate-y-0.5" />
             </a>
-            <a href={profile.resume} className="btn btn-ghost group">
+            <a href={profile.resume} target="_blank" rel="noopener" className="btn btn-ghost group">
               Résumé <ArrowUpRight size={15} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </motion.div>

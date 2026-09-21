@@ -166,7 +166,7 @@ In `src/components/TechLogo.jsx`, names are matched in lowercase, without versio
 
 ## Everything else
 
-- **Résumé:** put the PDF at `public/resume.pdf` and set `profile.resume: '/resume.pdf'`. It is currently `'#'`, a dead link.
+- **Résumé:** replace `public/resume.pdf` with the new PDF; `profile.resume` already points at `/resume.pdf`.
 - **Status line** (e.g. "Open to SDE & PM internships"): `profile.status`.
 - **Contact cards:** `socials`. **Each `label` needs an entry in `marks` in `src/components/Contact.jsx`** (icon + hover colour), or the page crashes. **Keep the label `GitHub` spelled exactly:** the console note in `src/main.jsx` looks it up by name, and the site won't load without it. The first two entries also appear as links under the hero, so order matters. The email is also in `profile.email`, so change both.
 - **Hero:** name, status, tagline, role and education all come from `profile`. The Nixie clock shows local time in `profile.timezone` (an IANA name like `'Asia/Kolkata'`); `profile.location` is the text beside it.

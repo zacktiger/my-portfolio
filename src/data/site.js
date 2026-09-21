@@ -11,7 +11,7 @@ export const profile = {
   timezone: 'Asia/Kolkata',
   status: 'Open to SDE & PM internships',
   email: 'kshitijbachhav005@gmail.com',
-  resume: '#', // TODO: link to resume PDF (drop it in /public and use '/resume.pdf')
+  resume: '/resume.pdf',
 }
 
 export const socials = [
