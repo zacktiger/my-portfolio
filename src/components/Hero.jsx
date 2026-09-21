@@ -58,8 +58,8 @@ export default function Hero() {
               See the work
               <ArrowDown size={15} weight="bold" className="transition-transform group-hover:translate-y-0.5" />
             </a>
-            <a href={profile.resume} className="btn btn-ghost">
-              Résumé <ArrowUpRight size={15} weight="bold" />
+            <a href={profile.resume} className="btn btn-ghost group">
+              Résumé <ArrowUpRight size={15} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </motion.div>
         </div>
@@ -67,8 +67,8 @@ export default function Hero() {
         <motion.ul {...rise(0.4)} className="mt-8 flex gap-5 font-mono text-xs text-muted">
           {socials.slice(0, 2).map((s) => (
             <li key={s.label}>
-              <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition hover:text-accent">
-                {s.label} <ArrowUpRight size={12} weight="bold" />
+              <a href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 transition hover:text-accent">
+                {s.label} <ArrowUpRight size={12} weight="bold" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             </li>
           ))}

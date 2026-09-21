@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Kshitij Bachhav</title>
     <meta name="description" content="Kshitij Bachhav — backend-leaning full-stack engineer. ECE at IIIT Nagpur." />
+    <meta name="author" content="Kshitij Bachhav" />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Browser chrome follows the theme; ThemeToggle updates it on switch. -->
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta name="color-scheme" content="light dark" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Link previews (LinkedIn, WhatsApp, Slack, X) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kshitij Bachhav" />
+    <meta property="og:title" content="Kshitij Bachhav — backend-leaning full-stack engineer" />
+    <meta property="og:description" content="I build backend systems and benchmark them before I make claims about them." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kshitij Bachhav — backend systems, benchmarked." />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -15,6 +35,7 @@
         var t = localStorage.getItem('theme')
         if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         document.documentElement.dataset.theme = t
+        if (t === 'dark') document.querySelector('meta[name="theme-color"]').content = '#0f0f0e'
       } catch (e) {
         document.documentElement.dataset.theme = 'light'
       }
