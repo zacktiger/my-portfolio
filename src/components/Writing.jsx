@@ -69,13 +69,13 @@ export default function Writing() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-16">
         <Reveal>
           <h2 className="display text-5xl text-balance sm:text-6xl">
-            Notes on maps, <span className="italic text-muted">money and war.</span>
+            Things I’ve written, <span className="italic text-muted">that you might find interesting.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.08}>
           <p className="max-w-md text-muted">
-            Outside code I write about geography, economics and conflict — the same questions
-            AtlasQL and PoliCast try to answer with data.
+            Outside code I like writing about the things I’m into — mostly geography, economics
+            and conflict. I like building projects around them too.
           </p>
         </Reveal>
       </div>
