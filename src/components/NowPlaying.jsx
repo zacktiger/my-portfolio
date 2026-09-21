@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Disc3, Minus, Music2, Play, X } from 'lucide-react'
+import { Minus, MusicNotes, Play, VinylRecord, X } from '@phosphor-icons/react'
 import { song } from '../data/site.js'
 
 /*
@@ -126,7 +126,7 @@ export default function NowPlaying() {
         animate={phase === 'open' ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 12, scale: 0.97 }}
         transition={spring}
         style={{ transformOrigin: 'bottom right' }}
-        className={`w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-line bg-surface p-2 shadow-2xl shadow-black/10 ${
+        className={`w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-line bg-surface p-2 [box-shadow:0_8px_24px_rgba(0,0,0,0.04)] ${
           phase === 'open' ? '' : 'pointer-events-none invisible absolute bottom-16 right-0'
         }`}
         role="dialog"
@@ -141,12 +141,12 @@ export default function NowPlaying() {
           <button
             onClick={() => setPhase('closed')}
             aria-label="Minimise player"
-            className="grid size-7 place-items-center rounded-full text-muted transition hover:bg-line hover:text-ink"
+            className="grid size-7 place-items-center rounded-md text-muted transition hover:bg-sunken hover:text-ink"
           >
-            <Minus size={15} />
+            <Minus size={14} weight="bold" />
           </button>
         </div>
-        <div ref={hostRef} className="relative h-[152px] overflow-hidden rounded-xl bg-line/50">
+        <div ref={hostRef} className="relative h-[152px] overflow-hidden rounded-lg bg-sunken">
           {!ready && (
             <div className="absolute inset-0 grid place-items-center font-mono text-xs text-muted">
               Loading Spotify…
@@ -164,34 +164,34 @@ export default function NowPlaying() {
             exit={{ opacity: 0, y: 8, scale: 0.97 }}
             transition={spring}
             style={{ transformOrigin: 'bottom right' }}
-            className="w-[min(20rem,calc(100vw-2rem))] rounded-2xl border border-line bg-surface p-4 shadow-2xl shadow-black/10"
+            className="w-[min(20rem,calc(100vw-2rem))] rounded-xl border border-line bg-surface p-5 [box-shadow:0_8px_24px_rgba(0,0,0,0.04)]"
             role="dialog"
             aria-label="Play music?"
           >
             <div className="flex items-start gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ink text-bg">
-                <Disc3 size={20} className="animate-[spin_4s_linear_infinite]" />
+              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                <VinylRecord size={20} weight="bold" className="animate-[spin_4s_linear_infinite]" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium">Soundtrack for the scroll?</p>
+                <p className="text-sm font-medium text-ink">Soundtrack for the scroll?</p>
                 <p className="mt-0.5 truncate text-xs text-muted">
                   {song.title} — {song.artist}
                 </p>
               </div>
-              <button onClick={dismiss} aria-label="Dismiss" className="-mr-1 -mt-1 grid size-7 place-items-center rounded-full text-faint transition hover:text-ink">
-                <X size={15} />
+              <button onClick={dismiss} aria-label="Dismiss" className="-mr-1 -mt-1 grid size-7 place-items-center rounded-md text-faint transition hover:text-ink">
+                <X size={14} weight="bold" />
               </button>
             </div>
             <div className="mt-4 flex gap-2">
               <button
                 onClick={playNow}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition hover:brightness-110"
+                className="btn btn-primary flex-1 justify-center !py-2"
               >
-                <Play size={14} fill="currentColor" /> Play
+                <Play size={13} weight="fill" /> Play
               </button>
               <button
                 onClick={dismiss}
-                className="flex-1 rounded-full border border-line px-4 py-2 text-sm text-muted transition hover:border-ink hover:text-ink"
+                className="btn btn-ghost flex-1 justify-center !py-2 !text-muted"
               >
                 Not now
               </button>
@@ -211,13 +211,13 @@ export default function NowPlaying() {
             onClick={togglePanel}
             aria-expanded={phase === 'open'}
             aria-label={phase === 'open' ? 'Hide music player' : 'Show music player'}
-            className="group flex h-12 items-center gap-2.5 rounded-full border border-line bg-surface/90 pl-3.5 pr-3.5 shadow-lg shadow-black/5 backdrop-blur-md transition hover:border-ink sm:pr-4"
+            className="group flex h-12 items-center gap-2.5 rounded-lg border border-line bg-surface/90 pl-3.5 pr-3.5 [box-shadow:0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-md transition hover:border-faint active:scale-[0.98] sm:pr-4"
           >
-            <span className={`grid size-6 place-items-center rounded-full ${playing ? 'text-accent' : 'text-ink'}`}>
-              {playing ? <Equalizer playing /> : <Music2 size={16} />}
+            <span className={`grid size-6 place-items-center rounded-md ${playing ? 'text-accent' : 'text-ink'}`}>
+              {playing ? <Equalizer playing /> : <MusicNotes size={16} weight="bold" />}
             </span>
             <span className="hidden max-w-[11rem] truncate text-left text-xs sm:block">
-              <span className="block font-medium">{song.title}</span>
+              <span className="block font-medium text-ink">{song.title}</span>
               <span className="block text-muted">{playing ? 'Playing' : song.artist}</span>
             </span>
           </motion.button>

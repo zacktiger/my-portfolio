@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
-import { Pause, Play } from 'lucide-react'
+import { Pause, Play } from '@phosphor-icons/react'
 import { allProjects } from '../data/site.js'
 
 // Tilted band that loops every project name. Pinned names jump to their tile
@@ -15,7 +15,7 @@ function Names({ hidden }) {
           target={pinned ? undefined : '_blank'}
           rel={pinned ? undefined : 'noreferrer'}
           tabIndex={hidden ? -1 : undefined}
-          className="px-6 font-sans text-[clamp(2.25rem,6vw,4.5rem)] font-semibold tracking-[-0.04em] whitespace-nowrap transition-opacity hover:opacity-60 sm:px-10"
+          className="px-6 font-sans text-[clamp(2.25rem,6vw,4.5rem)] font-semibold leading-tight tracking-[-0.04em] whitespace-nowrap transition-opacity hover:opacity-60 sm:px-10"
         >
           {p.name}
         </a>
@@ -50,7 +50,7 @@ export default function Marquee() {
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-xl text-sm leading-relaxed text-muted">
+        <p className="max-w-xl text-sm text-muted">
           {allProjects.length} projects on a loop; filled dots mark the {pinnedCount} pinned below.
           <span className="hidden [@media(hover:hover)]:inline"> Hover to hold it still.</span>
         </p>
@@ -58,9 +58,9 @@ export default function Marquee() {
           <button
             onClick={() => setPaused((p) => !p)}
             aria-pressed={paused}
-            className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-muted transition hover:border-ink hover:text-ink"
+            className="btn btn-ghost w-fit shrink-0 !py-2 !text-muted"
           >
-            {paused ? <Play size={14} /> : <Pause size={14} />}
+            {paused ? <Play size={13} weight="fill" /> : <Pause size={13} weight="fill" />}
             {paused ? 'Resume motion' : 'Pause motion'}
           </button>
         )}

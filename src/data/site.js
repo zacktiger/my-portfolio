@@ -22,9 +22,73 @@ export const socials = [
 
 export const nav = [
   { id: 'work', label: 'Work' },
+  { id: 'writing', label: 'Writing' },
   { id: 'about', label: 'About' },
-  { id: 'stack', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
+]
+
+// Posts come from src/data/writing.json, regenerated from the Medium feed on
+// every build (scripts/fetch-medium.mjs). Overrides are keyed by the hex id at
+// the end of the post URL — use them when the feed's opening line or tags
+// don't make a good one-line summary.
+export const writing = {
+  profile: 'https://medium.com/@kshitijbachhav005',
+  overrides: {
+    '629ba0836a72': {
+      title: 'The Geography of Power',
+      dek: 'Why some countries pour everything into one overwhelming city while others spread power across many — and what that does to how they run.',
+      topics: ['Geography', 'Cities'],
+    },
+    '060bdbebf102': {
+      title: 'Oil Is an Economic Problem, Not a Geological One',
+      topics: ['Economics', 'Energy'],
+    },
+    'f8f82d89a2eb': {
+      dek: 'Russia and the US top every military ranking, yet both are struggling to break far smaller nations. What changed about winning a war.',
+      topics: ['Geopolitics', 'War'],
+    },
+  },
+}
+
+// Off the clock. TODO: these lines are a first draft — rewrite in your own
+// voice, and fill `picks` (2–3 favourites) and `now` (what you're on right
+// now) so each tile says something only you would say.
+export const interests = [
+  {
+    key: 'documentaries',
+    title: 'Documentaries',
+    line: 'The long-form kind — history, geography, how countries and markets actually work. The same ground my Medium essays cover.',
+    picks: [],
+    now: null,
+  },
+  {
+    key: 'books',
+    title: 'Books',
+    line: 'Always one on the go, usually pulling in a different direction from whatever I’m building.',
+    picks: [],
+    now: null,
+  },
+  {
+    key: 'films',
+    title: 'Films',
+    line: 'Anything with a good script. The good ones get rewatched.',
+    picks: [],
+    now: null,
+  },
+  {
+    key: 'games',
+    title: 'Games',
+    line: 'I play them and I make them — won Technex GameJam 2024 at IIT BHU building one.',
+    picks: [],
+    now: null,
+  },
+  {
+    key: 'quizzes',
+    title: 'Quizzes',
+    line: 'If there’s a quiz going, I’m in. Trivia is how I find out what I don’t know yet.',
+    picks: [],
+    now: null,
+  },
 ]
 
 // The six pinned projects get a tile with a cover. `metric` is optional and
@@ -133,12 +197,59 @@ export const principles = [
   { title: 'Argue against my own pick', body: 'If a simpler design wins, the README says so — even when it’s the one I didn’t ship.' },
 ]
 
+// Each tool names the projects whose code actually uses it — keep `in` honest.
+// Names matching a pinned project link to its tile; leave `in` empty when a
+// tool isn't tied to one repo.
 export const stack = [
-  { group: 'Languages', items: ['TypeScript', 'JavaScript', 'Python', 'SQL'] },
-  { group: 'Backend', items: ['Node / Express', 'FastAPI', 'BullMQ', 'Socket.io'] },
-  { group: 'Data', items: ['PostgreSQL', 'PostGIS', 'Redis', 'Prisma'] },
-  { group: 'Frontend', items: ['React 19', 'Next.js', 'Tailwind', 'Zustand', 'TanStack Query'] },
-  { group: 'Ops', items: ['Docker Compose', 'Prometheus', 'Vercel', 'Render'] },
+  {
+    group: 'Languages',
+    items: [
+      { name: 'TypeScript', in: ['Pulse', 'DailyNote'] },
+      { name: 'Python', in: ['AtlasQL', 'FilingsIQ', 'PoliCast'] },
+      { name: 'JavaScript', in: ['ProjectFlow', 'SnapLink'] },
+      { name: 'SQL', in: ['Flux', 'ProjectFlow'] },
+    ],
+  },
+  {
+    group: 'Backend',
+    items: [
+      { name: 'Node / Express', in: ['Pulse', 'ProjectFlow', 'SnapLink'] },
+      { name: 'FastAPI', in: ['AtlasQL', 'FilingsIQ', 'PoliCast'] },
+      { name: 'BullMQ', in: ['Pulse'] },
+      { name: 'Socket.io', in: ['Pulse'] },
+    ],
+  },
+  {
+    group: 'Data',
+    items: [
+      { name: 'PostgreSQL', in: ['Flux', 'Pulse', 'ProjectFlow'] },
+      { name: 'Redis', in: ['Pulse', 'SnapLink'] },
+      { name: 'PostGIS', in: ['AtlasQL'] },
+      { name: 'Qdrant', in: ['FilingsIQ'] },
+      { name: 'Prisma', in: ['SnapLink'] },
+    ],
+  },
+  {
+    group: 'Frontend',
+    items: [
+      { name: 'React 19', in: ['ProjectFlow', 'PoliCast'] },
+      { name: 'Next.js', in: ['Flux', 'Pulse', 'SnapLink'] },
+      { name: 'React Native', in: ['DailyNote'] },
+      { name: 'Zustand', in: ['ProjectFlow'] },
+      { name: 'd3-geo', in: ['AtlasQL'] },
+      { name: 'TanStack Query', in: [] },
+      { name: 'Tailwind', in: [] },
+    ],
+  },
+  {
+    group: 'Ops',
+    items: [
+      { name: 'Docker Compose', in: ['SnapLink', 'AtlasQL'] },
+      { name: 'Prometheus', in: ['ProjectFlow'] },
+      { name: 'Vercel', in: ['Flux'] },
+      { name: 'Render', in: [] },
+    ],
+  },
 ]
 
 export const highlights = [

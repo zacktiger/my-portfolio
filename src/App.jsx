@@ -2,7 +2,7 @@ import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import Work from './components/Work.jsx'
 import About from './components/About.jsx'
-import Stack from './components/Stack.jsx'
+import Writing from './components/Writing.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 import NowPlaying from './components/NowPlaying.jsx'
@@ -15,8 +15,8 @@ export default function App() {
       <main className="relative z-10">
         <Hero />
         <Work />
+        <Writing />
         <About />
-        <Stack />
         <Contact />
       </main>
       <Footer />

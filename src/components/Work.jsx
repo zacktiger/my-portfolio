@@ -1,46 +1,65 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from '@phosphor-icons/react'
 import { pinned, socials } from '../data/site.js'
 import Marquee from './Marquee.jsx'
 import ProjectCover from './ProjectCover.jsx'
 import Reveal from './Reveal.jsx'
 
+// Bento rhythm on a 6-column grid: wide / narrow, narrow / wide, half / half.
+// Wide tiles set the cover beside the text instead of above it.
+const spans = [4, 2, 2, 4, 3, 3]
+const colSpan = { 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4' }
+
 function Tile({ p, i }) {
+  const wide = spans[i] === 4
   return (
-    <Reveal as="li" delay={0.05 * (i % 3)} id={`project-${p.slug}`} className="scroll-mt-24">
+    <Reveal
+      as="li"
+      delay={0.08 * (i % 3)}
+      id={`project-${p.slug}`}
+      className={`scroll-mt-24 ${colSpan[spans[i]] || 'lg:col-span-2'}`}
+    >
       <a
         href={p.live || p.repo}
         target="_blank"
         rel="noreferrer"
-        className="group flex h-full flex-col rounded-2xl p-2 transition-colors duration-300 hover:bg-surface"
+        className={`card group grid h-full p-3 hover:[box-shadow:var(--hover-shadow)] ${
+          wide ? 'grid-rows-[auto_1fr] lg:grid-cols-[1.15fr_1fr] lg:grid-rows-1 lg:gap-3' : 'grid-rows-[auto_1fr]'
+        }`}
       >
-        <ProjectCover project={p} />
+        <ProjectCover project={p} className={wide ? 'lg:aspect-auto lg:h-full lg:min-h-[17rem]' : ''} />
 
-        <div className="flex flex-1 flex-col px-2 pb-2 pt-5">
+        <div className="flex flex-col px-3 pb-3 pt-6 sm:px-4 lg:pt-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h3 className="flex items-center gap-2 text-xl font-semibold tracking-tight">
+              <h3 className="flex flex-wrap items-center gap-2 text-xl font-semibold tracking-tight text-ink">
                 {p.name}
-                {p.status && <span className="chip !text-[0.65rem]">{p.status}</span>}
+                {p.status && <span className="tag bg-yellow-bg text-yellow">{p.status}</span>}
               </h3>
               <p className="mt-0.5 text-sm text-muted">{p.kind}</p>
             </div>
             <ArrowUpRight
-              size={20}
+              size={18}
+              weight="bold"
               className="mt-1 shrink-0 text-faint transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
             />
           </div>
 
-          <p className="mt-3 text-[0.95rem] leading-relaxed text-pretty">{p.summary}</p>
+          <p className="mt-4 text-[0.95rem] text-pretty">{p.summary}</p>
 
-          <div className="mt-auto pt-5">
+          <div className="mt-auto pt-6">
             {p.metric && (
-              <p className="mb-4 flex items-baseline gap-2 border-t border-line pt-4">
+              <p className="mb-4 flex items-baseline gap-2.5 border-t border-line pt-4">
                 <span className="font-mono text-2xl tracking-tight text-accent">{p.metric.value}</span>
                 <span className="text-xs text-muted">{p.metric.label}</span>
               </p>
             )}
-            <ul className="flex flex-wrap gap-1.5">
-              {p.stack.map((s) => <li key={s} className="chip">{s}</li>)}
+            <ul className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted">
+              {p.stack.map((s, j) => (
+                <li key={s} className="flex items-center gap-2">
+                  {j > 0 && <span className="text-faint" aria-hidden>/</span>}
+                  {s}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -62,14 +81,14 @@ export default function Work() {
 
       <Marquee />
 
-      <ol className="mt-16 grid gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {pinned.map((p, i) => <Tile key={p.slug} p={p} i={i} />)}
       </ol>
 
       <Reveal className="mt-12">
         <a href={github.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 text-sm text-muted hover:text-ink">
           Everything else on GitHub
-          <ArrowUpRight size={15} className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          <ArrowUpRight size={14} weight="bold" className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </a>
       </Reveal>
     </section>

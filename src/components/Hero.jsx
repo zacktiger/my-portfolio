@@ -43,7 +43,7 @@ export default function Hero() {
         <h1 className="display text-[clamp(4rem,19vw,10rem)] !leading-[0.95] tracking-[-0.04em]">
           <motion.span {...rise(0.08)} className="block">Kshitij</motion.span>
           <motion.span {...rise(0.16)} className="block italic text-muted">
-            Bachhav<span className="not-italic text-faint">.</span>
+            Bachhav<span className="not-italic text-accent">.</span>
           </motion.span>
         </h1>
 
@@ -67,7 +67,7 @@ export default function Hero() {
         <motion.ul {...rise(0.4)} className="mt-8 flex gap-5 font-mono text-xs text-muted">
           {socials.slice(0, 2).map((s) => (
             <li key={s.label}>
-              <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition hover:text-ink">
+              <a href={s.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition hover:text-accent">
                 {s.label} <ArrowUpRight size={12} weight="bold" />
               </a>
             </li>

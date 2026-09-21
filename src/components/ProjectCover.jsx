@@ -93,11 +93,11 @@ const illustrations = {
   ),
 }
 
-export default function ProjectCover({ project }) {
+export default function ProjectCover({ project, className = '' }) {
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-surface">
-      <div className="flex h-6 items-center gap-1.5 border-b border-line px-3">
-        {[0, 1, 2].map((i) => <span key={i} className="size-1.5 rounded-full bg-line" />)}
+    <div className={`relative aspect-[16/10] overflow-hidden rounded-lg border border-line bg-sunken ${className}`}>
+      <div className="flex h-6 items-center gap-1.5 border-b border-line bg-surface px-3">
+        {[0, 1, 2].map((i) => <span key={i} className="size-2 rounded-full bg-line" />)}
       </div>
       <div className="absolute inset-x-0 bottom-0 top-6 overflow-hidden">
         {project.image ? (
@@ -105,14 +105,14 @@ export default function ProjectCover({ project }) {
             src={project.image}
             alt={`${project.name} screenshot`}
             loading="lazy"
-            className="size-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="size-full object-cover object-top saturate-[0.85] sepia-[0.06] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
         ) : (
           <svg
             viewBox="0 0 320 194"
             role="img"
             aria-label={`${project.name} illustration`}
-            className="size-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="size-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           >
             {illustrations[project.slug]}
           </svg>

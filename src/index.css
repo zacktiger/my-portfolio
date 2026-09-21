@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 /*
-  Palette — warm monochrome, with four washed-out pastels for tags and
-  illustration spots. Every color is a CSS variable swapped by [data-theme];
+  Palette — warm paper + ink, one burnt-orange accent, plus four washed-out
+  pastels for small status tags. Every color is a CSS variable swapped by [data-theme];
   Tailwind utilities (bg-bg, text-ink, border-line, bg-green-bg…) come from these.
 */
 :root,
 [data-theme='light'] {
-  --bg: #fbfbfa;
-  --surface: #ffffff;
-  --sunken: #f7f6f3;
-  --ink: #111111;
-  --ink-hover: #333333;
-  --body: #2f3437;
-  --muted: #787774;
-  --faint: #a8a6a1;
-  --line: #eaeaea;
+  --bg: #f5f3ee;
+  --surface: #fbfaf7;
+  --sunken: #efece5;
+  --ink: #171614;
+  --ink-hover: #d9480f;
+  --body: #2a2825;
+  --muted: #6b6760;
+  --faint: #a19c93;
+  --line: #e2ddd3;
+  --accent: #d9480f;
+  --accent-soft: #fbe3d6;
   --hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   --ambient: rgba(214, 170, 120, 0.35);
 
@@ -27,15 +29,17 @@
 }
 
 [data-theme='dark'] {
-  --bg: #121211;
-  --surface: #181817;
-  --sunken: #1d1d1b;
+  --bg: #0f0f0e;
+  --surface: #171715;
+  --sunken: #1c1c1a;
   --ink: #edebe6;
-  --ink-hover: #cfccc5;
+  --ink-hover: #ff7a45;
   --body: #d6d3cd;
   --muted: #9a968e;
   --faint: #5f5c56;
-  --line: #262624;
+  --line: #292825;
+  --accent: #ff7a45;
+  --accent-soft: #3a1d10;
   --hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   --ambient: rgba(214, 170, 120, 0.5);
 
@@ -53,6 +57,8 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --color-sunken: var(--sunken);
   --color-body: var(--body);
   --color-ink-hover: var(--ink-hover);
@@ -87,12 +93,12 @@ body {
 }
 
 ::selection {
-  background: var(--yellow-bg);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -289,7 +295,7 @@ body {
 
 /* a tile reached from the marquee flashes once so the eye lands on it */
 @keyframes tile-flash {
-  0%, 60% { box-shadow: 0 0 0 2px var(--ink); }
+  0%, 60% { box-shadow: 0 0 0 2px var(--accent); }
   100% { box-shadow: 0 0 0 2px transparent; }
 }
 li:target > a { border-radius: 12px; animation: tile-flash 1.8s ease-out; }

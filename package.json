@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fetch:medium": "node scripts/fetch-medium.mjs",
+    "prebuild": "node scripts/fetch-medium.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^13.4.0",
-    "lucide-react": "^1.47.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
