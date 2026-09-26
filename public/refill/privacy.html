@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refill privacy policy — Kshitij Bachhav</title>
+  <meta name="description" content="What the Refill Chrome extension does with your data: it reads your Claude usage limits on your device and sends nothing anywhere.">
+  <style>
+    :root {
+      --bg: #f5f3ee;
+      --surface: #fbfaf7;
+      --ink: #171614;
+      --body: #2a2825;
+      --muted: #6b6760;
+      --line: #e2ddd3;
+      --accent: #d9480f;
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f0e;
+        --surface: #171715;
+        --ink: #edebe6;
+        --body: #d6d3cd;
+        --muted: #9a968e;
+        --line: #292825;
+        --accent: #ff7a45;
+        color-scheme: dark;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 72px 24px 96px;
+      background: var(--bg);
+      color: var(--body);
+      font: 17px/1.65 ui-serif, Georgia, "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main { max-width: 34rem; margin: 0 auto; }
+
+    a { color: var(--accent); }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 40px;
+      color: var(--muted);
+      font: 500 14px/1 ui-sans-serif, system-ui, sans-serif;
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--accent); }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .updated {
+      margin: 8px 0 40px;
+      color: var(--muted);
+      font: 14px/1 ui-sans-serif, system-ui, sans-serif;
+    }
+
+    h2 {
+      margin: 40px 0 10px;
+      color: var(--ink);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    p, li { margin: 0 0 14px; }
+
+    ul { padding-left: 20px; }
+
+    strong { color: var(--ink); font-weight: 600; }
+
+    .callout {
+      margin: 28px 0;
+      padding: 18px 20px;
+      border-left: 2px solid var(--accent);
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .callout p:last-child { margin-bottom: 0; }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font: 14px/1.6 ui-sans-serif, system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="/">Back to the homepage</a>
+
+    <h1>Refill privacy policy</h1>
+    <p class="updated">Last updated 26 September 2026</p>
+
+    <p>Refill is a Chrome extension that rings an alarm when your Claude usage limit resets. This policy is short because Refill does very little with your data.</p>
+
+    <div class="callout">
+      <p><strong>Refill sends nothing anywhere.</strong> It has no server, no account, and no analytics. Everything it reads stays in your browser.</p>
+    </div>
+
+    <h2>What Refill reads</h2>
+    <p>Refill reads the usage limits and reset times from your own claude.ai session: how full your session and weekly limits are, and when each one resets. It reads this the same way the claude.ai settings page does, using the browser session you are already signed in to.</p>
+    <p>Refill does not read, store, or transmit your conversations, prompts, files, email address, name, or cookies. It sends nothing to claude.ai and uses none of your usage.</p>
+
+    <h2>What Refill stores, and where</h2>
+    <p>On your device only, in your browser's local extension storage:</p>
+    <ul>
+      <li>the most recent usage reading, meaning percentages and reset times;</li>
+      <li>the reset time an alarm is currently set for;</li>
+      <li>the identifier of the Claude organization whose limits are being read.</li>
+    </ul>
+    <p>This never leaves your browser. Uninstalling Refill deletes it.</p>
+
+    <h2>What Refill sends</h2>
+    <p>Nothing. This version has no server and no analytics or tracking of any kind.</p>
+    <p>A future version will offer an optional phone alert over Telegram. If you turn it on, three things will be sent to Refill's server: a random pairing token, the reset time, and which limit it was. Nothing else, ever, and never your cookies, email address, or conversation content. This policy will be updated before that ships, and the feature will be off unless you turn it on.</p>
+
+    <h2>Third parties</h2>
+    <p>Refill shares data with no one, sells data to no one, and uses no advertising or analytics services.</p>
+
+    <h2>Not affiliated with Anthropic</h2>
+    <p>Refill is an independent project. "Claude" is a trademark of Anthropic PBC, used here only to describe what this tool works with. Refill is not endorsed by, sponsored by, or produced by Anthropic.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or problems: email the address on the Chrome Web Store listing, or open an issue on the project's GitHub repository.</p>
+
+    <footer>Refill is built and maintained by Kshitij Bachhav.</footer>
+  </main>
+</body>
+</html>
