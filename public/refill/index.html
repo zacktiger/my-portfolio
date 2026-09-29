@@ -408,11 +408,11 @@
     <section class="faq">
       <details>
         <summary>Can I be woken before the reset?</summary>
-        <p>Yes. In the popup, under Alarm settings, choose 5 or 10 minutes early, or type any number of minutes.</p>
+        <p>Yes. Open the popup, click the gear, and pick 5 or 10 minutes early — or type any number, up to two hours.</p>
       </details>
       <details>
         <summary>Can I use my own sound?</summary>
-        <p>Pick any audio file under 1.5 MB. It stays on your computer, and Test plays it so you know what you're in for.</p>
+        <p>Behind the same gear: pick any audio file under 1.5 MB. It stays on your computer, and Test plays it so you know what you're in for.</p>
       </details>
       <details>
         <summary>Does it use my Claude usage?</summary>
@@ -481,16 +481,17 @@
     // A short two-tone chime, synthesized so the page ships no audio file.
     el("hear").addEventListener("click", () => {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      // Same two-tone chime the extension plays, at the same pitches.
       [988, 988, 1319].forEach((freq, i) => {
         const osc = ctx.createOscillator(), gain = ctx.createGain();
         const start = ctx.currentTime + i * 0.22;
         osc.frequency.value = freq;
         gain.gain.setValueAtTime(0.0001, start);
-        gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
+        gain.gain.exponentialRampToValueAtTime(0.5, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.2);
         osc.connect(gain).connect(ctx.destination);
         osc.start(start);
-        osc.stop(start + 0.2);
+        osc.stop(start + 0.22);
       });
     });
 
